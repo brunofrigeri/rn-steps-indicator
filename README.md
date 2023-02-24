@@ -8,10 +8,39 @@ A simple react-native library component for a Step Indicator with custom styling
 npm install rn-step-indicator
 ```
 
-## Usage
+## Simple Usage
 
 ```js
-import { multiply } from 'rn-step-indicator';
+import StepIndicator from 'rn-step-indicator';
+
+// ...
+
+const steps = []
+
+const defaultStyles = {
+    completed: {},
+    uncompleted: {},
+    current: {}
+}
+
+const MyComponent = () => {
+    return (
+        <StepIndicator
+            steps={steps}
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+            customStyles={defaultStyles}
+        />
+    )
+}
+
+export default MyComponent;
+```
+
+## Customizing Indicator and Label
+
+```js
+import { StepIndicator } from 'rn-step-indicator';
 
 // ...
 
