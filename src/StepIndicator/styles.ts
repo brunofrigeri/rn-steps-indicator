@@ -5,6 +5,7 @@ const completedStyles: StepIndicatorStyles['completed'] = {
   indicator: {
     borderWidth: 2,
     color: 'skyblue',
+    size: 30,
   },
   stroke: {
     thickness: 4,
@@ -16,6 +17,7 @@ const uncompletedStyles: StepIndicatorStyles['uncompleted'] = {
   indicator: {
     borderWidth: 2,
     color: 'gray',
+    size: 30,
   },
   stroke: {
     thickness: 2,
@@ -31,6 +33,7 @@ const currentStyles: StepIndicatorStyles['current'] = {
   indicator: {
     borderWidth: 4,
     scale: 1.5,
+    size: 30,
     color: 'green',
   },
 };
@@ -42,9 +45,14 @@ export const defaultStyles: StepIndicatorStyles = {
 };
 
 export const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
+  centered: {
     alignItems: 'center',
+  },
+  horizontalContainer: {
+    flexDirection: 'row',
+  },
+  verticalContainer: {
+    flexDirection: 'column',
   },
   progressBar: {
     position: 'absolute',

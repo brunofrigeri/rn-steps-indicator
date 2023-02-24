@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -34,10 +34,17 @@ const Item: React.FC<ItemProps> = memo(
       ],
     }));
 
+    const sizeStyles: ViewStyle = {
+      width: customStyles?.size,
+      height: customStyles?.size,
+    };
+
     return (
       <TouchableWithoutFeedback onPress={() => onStepChange(index)}>
         <View style={styles.stepContainer}>
-          <Animated.View style={[styles.indicator, indicatorContainerStyle]}>
+          <Animated.View
+            style={[styles.indicator, sizeStyles, indicatorContainerStyle]}
+          >
             {customStepIndicator ? (
               customStepIndicator
             ) : (

@@ -10,6 +10,7 @@ export type StepStatus = 'completed' | 'uncompleted' | 'current';
 type LabelStyles = StyleProp<TextStyle>;
 type IndicatorStyles = {
   borderWidth?: number;
+  size?: number;
   scale?: number;
   textStyle?: StyleProp<TextStyle>;
   color?: string;

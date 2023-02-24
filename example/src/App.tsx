@@ -13,6 +13,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 const completedStyles: StepIndicatorStyles['completed'] = {
   indicator: {
     borderWidth: 2,
+    size: 30,
     color: 'skyblue',
   },
   stroke: {
@@ -24,6 +25,7 @@ const completedStyles: StepIndicatorStyles['completed'] = {
 const uncompletedStyles: StepIndicatorStyles['uncompleted'] = {
   indicator: {
     borderWidth: 2,
+    size: 30,
     color: 'gray',
   },
   stroke: {
@@ -39,6 +41,7 @@ const currentStyles: StepIndicatorStyles['current'] = {
   },
   indicator: {
     borderWidth: 4,
+    size: 30,
     scale: 1.5,
     color: 'green',
   },
@@ -53,19 +56,16 @@ export const defaultStyles: StepIndicatorStyles = {
 const steps: Step[] = [
   {
     indicator: 1,
-    label: 'Label 1',
+    label: "That's a medium label!",
   },
   {
     indicator: 2,
-    label: 'Label 2',
+    label:
+      'Thats a wonderful and long label! Lorem ipsum, maybe can turn this text so much bigger.',
   },
   {
     indicator: 3,
-    label: 'Label 3',
-  },
-  {
-    indicator: 4,
-    label: 'Label 4',
+    label: 'This is label 3',
   },
 ];
 
@@ -82,6 +82,7 @@ export default function App() {
           customStyles={defaultStyles}
         />
         <StepIndicator
+          horizontal={false}
           steps={steps}
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
@@ -94,7 +95,7 @@ export default function App() {
                 style: 'dashed',
                 dashStyles: {
                   gap: 4,
-                  length: 10,
+                  length: 20,
                   color: 'skyblue',
                 },
               },
@@ -159,11 +160,12 @@ const styles = StyleSheet.create({
   },
   stepIndicatorContainer: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    padding: 20,
   },
   customStepIndicatorLabel: {
     fontWeight: '700',
     fontSize: 18,
+    marginLeft: 10,
   },
   buttonsContainer: {
     flexDirection: 'row',

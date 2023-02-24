@@ -3,6 +3,7 @@ import type { Step, StepIndicatorStyles, StepStyles } from '../../types';
 import type { StepIndicatorProps } from '../../';
 import Item from '../Item';
 import { mapStepToStatus } from '../../../helpers';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
 type StepsProps = Pick<
   StepIndicatorProps,
@@ -10,6 +11,7 @@ type StepsProps = Pick<
 > & {
   onStepChange: (step: number) => void;
   customStyles: StepIndicatorStyles;
+  directionStyles: ViewStyle;
 };
 
 const Steps: React.FC<StepsProps> = ({
@@ -18,6 +20,7 @@ const Steps: React.FC<StepsProps> = ({
   currentStep,
   renderStepIndicator,
   customStyles,
+  directionStyles,
 }) => {
   const renderItem = (step: Step, index: number) => {
     const currentStatus = mapStepToStatus(currentStep, index);
@@ -40,7 +43,19 @@ const Steps: React.FC<StepsProps> = ({
     );
   };
 
-  return <>{steps.map(renderItem)}</>;
+  return (
+    <View style={[styles.container, directionStyles]}>
+      {steps.map(renderItem)}
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    zIndex: 999,
+  },
+});
 
 export default Steps;

@@ -11,6 +11,7 @@ import { defaultStyles, styles } from './styles';
 import type { Step, StepIndicatorStyles, StepStatus } from './types';
 import Labels from './components/Labels';
 import Steps from './components/Steps';
+import { useStepIndicatorPosition } from '../hooks/useStepIndicatorPosition';
 
 export interface StepIndicatorProps {
   horizontal?: boolean;
@@ -26,24 +27,33 @@ export interface StepIndicatorProps {
 }
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({
+  horizontal = true,
   currentStep,
   setCurrentStep,
   steps,
-  customStyles = defaultStyles,
+  customStyles = {
+    ...defaultStyles,
+  },
   renderLabel,
   renderStepIndicator,
 }) => {
   const [width, setWidth] = useState<number>(0);
+  const [height, setHeight] = useState<number>(0);
 
   const stepsSize = steps.length;
   const { finishedProgressBar } = useAnimatedStyles({
+    horizontal,
     currentStep,
     stepsSize,
     width,
+    height,
   });
+
+  const { positionStyles } = useStepIndicatorPosition(horizontal);
 
   const onLayoutContainer = (event: LayoutChangeEvent) => {
     setWidth(event.nativeEvent.layout.width);
+    setHeight(event.nativeEvent.layout.height);
   };
 
   const onStepChange = (nextStep: number) => {
@@ -51,19 +61,16 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
   };
 
   const renderProgressBar = () => {
-    const positionFromBorder = width / (2 * stepsSize);
-
     const strokeStyles = customStyles?.uncompleted.stroke;
     const isDashed = strokeStyles?.style === 'dashed';
 
-    const dashPositionStyles: ViewStyle = {
-      left: positionFromBorder,
-      right: positionFromBorder,
-    };
+    const sizeStyles = horizontal
+      ? { height: strokeStyles?.thickness }
+      : { width: strokeStyles?.thickness };
 
     const containerStyles: ViewStyle = {
-      ...dashPositionStyles,
-      height: strokeStyles?.thickness,
+      ...sizeStyles,
+      ...positionStyles,
       backgroundColor: strokeStyles?.color,
     };
 
@@ -72,7 +79,8 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
 
       return (
         <DashedLine
-          dashContainerStyles={dashPositionStyles}
+          horizontal={horizontal}
+          dashContainerStyles={positionStyles}
           stepsSize={stepsSize}
           dashColor={dashStyles?.color}
           dashGap={dashStyles?.gap}
@@ -85,43 +93,59 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
     return <View style={[styles.progressBar, containerStyles]} />;
   };
 
-  const finishedProgressBarStyles = useAnimatedStyle(() => ({
-    width: withTiming(finishedProgressBar.value, {
+  const finishedProgressBarStyles = useAnimatedStyle(() => {
+    const value = withTiming(finishedProgressBar.value, {
       duration: 200,
       easing: Easing.linear,
-    }),
-  }));
+    });
+
+    return horizontal ? { width: value } : { height: value };
+  });
 
   const renderFinishedProgressBar = () => {
-    const positionFromBorder = width / (2 * stepsSize);
-
     const strokeStyles = customStyles?.completed.stroke;
+
+    const sizeStyles = horizontal
+      ? { height: strokeStyles?.thickness }
+      : { width: strokeStyles?.thickness };
 
     return (
       <Animated.View
         style={[
           styles.progressFinishedBar,
           {
-            left: positionFromBorder,
-            right: positionFromBorder,
-            height: strokeStyles?.thickness,
             backgroundColor: strokeStyles?.color,
           },
+          sizeStyles,
+          positionStyles,
           finishedProgressBarStyles,
         ]}
       />
     );
   };
 
+  const directionStyles: ViewStyle = {
+    flexDirection: horizontal ? 'row' : 'column',
+  };
+
+  const invertedDirectionStyles: ViewStyle = {
+    flex: horizontal ? 0 : 1,
+    flexDirection: !horizontal ? 'row' : 'column',
+  };
+
   return (
-    <View>
-      <View onLayout={onLayoutContainer} style={styles.container}>
+    <View style={invertedDirectionStyles}>
+      <View
+        onLayout={onLayoutContainer}
+        style={[directionStyles, styles.centered]}
+      >
         <Steps
           steps={steps}
           currentStep={currentStep}
           onStepChange={onStepChange}
           customStyles={customStyles}
           renderStepIndicator={renderStepIndicator}
+          directionStyles={directionStyles}
         />
         {width > 0 && (
           <>
@@ -131,6 +155,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
         )}
       </View>
       <Labels
+        horizontal={horizontal}
         steps={steps}
         currentStep={currentStep}
         renderLabel={renderLabel}
