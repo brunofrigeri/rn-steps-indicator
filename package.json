@@ -1,7 +1,7 @@
 {
   "name": "rn-step-indicator",
-  "version": "0.1.0",
-  "description": "test",
+  "version": "1.0.0",
+  "description": "A simple react-native library component for a Step Indicator with custom styling using `react-native-reanimated` for introducing custom animations, in the manner we have it as a peer dependency, and implemented completely with `typescript`.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
