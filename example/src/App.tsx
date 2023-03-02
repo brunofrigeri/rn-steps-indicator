@@ -41,8 +41,7 @@ const currentStyles: StepIndicatorStyles['current'] = {
   },
   indicator: {
     borderWidth: 4,
-    size: 30,
-    scale: 1.5,
+    size: 45,
     color: 'green',
   },
 };
@@ -54,19 +53,9 @@ export const defaultStyles: StepIndicatorStyles = {
 };
 
 const steps: Step[] = [
-  {
-    indicator: 1,
-    label: "That's a medium label!",
-  },
-  {
-    indicator: 2,
-    label:
-      'Thats a wonderful and long label! Lorem ipsum, maybe can turn this text so much bigger.',
-  },
-  {
-    indicator: 3,
-    label: 'This is label 3',
-  },
+  "That's a medium label!",
+  'Thats a wonderful and long label! Lorem ipsum, maybe can turn this text so much bigger.',
+  'This is label 3',
 ];
 
 export default function App() {
@@ -105,9 +94,7 @@ export default function App() {
             switch (status) {
               case 'current':
                 return (
-                  <Text style={styles.customStepIndicatorLabel}>
-                    {step.label}
-                  </Text>
+                  <Text style={styles.customStepIndicatorLabel}>{step}</Text>
                 );
               case 'completed':
               case 'uncompleted':

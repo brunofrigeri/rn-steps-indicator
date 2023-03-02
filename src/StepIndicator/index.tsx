@@ -7,11 +7,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import DashedLine from '../DashedLine';
 import { useAnimatedStyles } from '../hooks/useAnimatedStyles';
-import { defaultStyles, styles } from './styles';
+import { styles } from './styles';
 import type { Step, StepIndicatorStyles, StepStatus } from './types';
 import Labels from './components/Labels';
 import Steps from './components/Steps';
 import { useStepIndicatorPosition } from '../hooks/useStepIndicatorPosition';
+import { getCustomStyles } from '../helpers/getCustomStyles';
 
 export interface StepIndicatorProps {
   horizontal?: boolean;
@@ -31,14 +32,14 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
   currentStep,
   setCurrentStep,
   steps,
-  customStyles = {
-    ...defaultStyles,
-  },
+  customStyles,
   renderLabel,
   renderStepIndicator,
 }) => {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
+
+  const stepIndicatorCustomStyles = getCustomStyles(customStyles);
 
   const stepsSize = steps.length;
   const { finishedProgressBar } = useAnimatedStyles({
@@ -61,7 +62,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
   };
 
   const renderProgressBar = () => {
-    const strokeStyles = customStyles?.uncompleted.stroke;
+    const strokeStyles = stepIndicatorCustomStyles?.uncompleted.stroke;
     const isDashed = strokeStyles?.style === 'dashed';
 
     const sizeStyles = horizontal
@@ -75,7 +76,8 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
     };
 
     if (isDashed) {
-      const dashStyles = customStyles?.uncompleted.stroke?.dashStyles;
+      const dashStyles =
+        stepIndicatorCustomStyles?.uncompleted.stroke?.dashStyles;
 
       return (
         <DashedLine
@@ -95,7 +97,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
 
   const finishedProgressBarStyles = useAnimatedStyle(() => {
     const value = withTiming(finishedProgressBar.value, {
-      duration: 200,
+      duration: 500,
       easing: Easing.linear,
     });
 
@@ -103,7 +105,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
   });
 
   const renderFinishedProgressBar = () => {
-    const strokeStyles = customStyles?.completed.stroke;
+    const strokeStyles = stepIndicatorCustomStyles?.completed.stroke;
 
     const sizeStyles = horizontal
       ? { height: strokeStyles?.thickness }
@@ -143,16 +145,13 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
           steps={steps}
           currentStep={currentStep}
           onStepChange={onStepChange}
-          customStyles={customStyles}
+          customStyles={stepIndicatorCustomStyles}
           renderStepIndicator={renderStepIndicator}
           directionStyles={directionStyles}
+          horizontal={horizontal}
         />
-        {width > 0 && (
-          <>
-            {renderProgressBar()}
-            {renderFinishedProgressBar()}
-          </>
-        )}
+        {renderProgressBar()}
+        {width > 0 && renderFinishedProgressBar()}
       </View>
       <Labels
         horizontal={horizontal}

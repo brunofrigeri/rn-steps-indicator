@@ -4,10 +4,11 @@ import type { StepIndicatorProps } from '../../';
 import Item from '../Item';
 import { mapStepToStatus } from '../../../helpers';
 import { StyleSheet, View, ViewStyle } from 'react-native';
+import { getMaxIndicatorSize } from '../../../helpers/getMaxIndicatorSize';
 
 type StepsProps = Pick<
   StepIndicatorProps,
-  'steps' | 'renderStepIndicator' | 'currentStep'
+  'steps' | 'renderStepIndicator' | 'currentStep' | 'horizontal'
 > & {
   onStepChange: (step: number) => void;
   customStyles: StepIndicatorStyles;
@@ -21,7 +22,9 @@ const Steps: React.FC<StepsProps> = ({
   renderStepIndicator,
   customStyles,
   directionStyles,
+  horizontal = true,
 }) => {
+  const maxSize = getMaxIndicatorSize(customStyles, horizontal);
   const renderItem = (step: Step, index: number) => {
     const currentStatus = mapStepToStatus(currentStep, index);
     const customStepIndicator =
@@ -33,10 +36,11 @@ const Steps: React.FC<StepsProps> = ({
 
     return (
       <Item
-        key={step.label}
+        key={step}
         step={step}
         index={index}
         onStepChange={onStepChange}
+        isCurrent={currentStatus === 'current'}
         customStepIndicator={customStepIndicator}
         customStyles={styles}
       />
@@ -44,7 +48,7 @@ const Steps: React.FC<StepsProps> = ({
   };
 
   return (
-    <View style={[styles.container, directionStyles]}>
+    <View style={[styles.container, maxSize, directionStyles]}>
       {steps.map(renderItem)}
     </View>
   );

@@ -40,11 +40,11 @@ const Labels: React.FC<LabelsProps> = ({
     };
 
     return (
-      <View key={step.label} style={[styles.itemContainer, containerStyles]}>
+      <View key={step} style={[styles.itemContainer, containerStyles]}>
         {customLabel ? (
           customLabel
         ) : (
-          <Text style={[styles.item, textStyles]}>{step.label}</Text>
+          <Text style={[styles.item, textStyles]}>{step}</Text>
         )}
       </View>
     );

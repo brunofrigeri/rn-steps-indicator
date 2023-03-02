@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Text, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -18,37 +18,30 @@ export interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = memo(
-  ({ step, index, onStepChange, customStepIndicator, customStyles }) => {
+  ({ index, onStepChange, customStepIndicator, customStyles }) => {
     const indicatorContainerStyle = useAnimatedStyle(() => ({
       borderWidth: withTiming(customStyles?.borderWidth as Required<number>, {
-        duration: 200,
+        duration: 500,
         easing: Easing.linear,
       }),
-      transform: [
-        {
-          scale: withTiming(customStyles?.scale ?? 1, {
-            duration: 200,
-            easing: Easing.linear,
-          }),
-        },
-      ],
+      width: withTiming(customStyles?.size ?? 40, {
+        duration: 500,
+        easing: Easing.linear,
+      }),
+      height: withTiming(customStyles?.size ?? 40, {
+        duration: 500,
+        easing: Easing.linear,
+      }),
     }));
-
-    const sizeStyles: ViewStyle = {
-      width: customStyles?.size,
-      height: customStyles?.size,
-    };
 
     return (
       <TouchableWithoutFeedback onPress={() => onStepChange(index)}>
         <View style={styles.stepContainer}>
-          <Animated.View
-            style={[styles.indicator, sizeStyles, indicatorContainerStyle]}
-          >
+          <Animated.View style={[styles.indicator, indicatorContainerStyle]}>
             {customStepIndicator ? (
               customStepIndicator
             ) : (
-              <Text>{step.indicator}</Text>
+              <Text>{index + 1}</Text>
             )}
           </Animated.View>
         </View>

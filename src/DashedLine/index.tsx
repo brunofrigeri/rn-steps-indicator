@@ -15,7 +15,7 @@ export interface DashedLineProps {
 const DashedLine: React.FC<DashedLineProps> = ({
   horizontal,
   dashGap = 2,
-  dashLength = 6,
+  dashLength = 4,
   dashThickness = 1,
   dashColor = 'gray',
   dashContainerStyles,
