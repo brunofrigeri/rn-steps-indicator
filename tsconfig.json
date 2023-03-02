@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "rn-step-indicator": ["./src/index"]
+      "rn-steps-indicator": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

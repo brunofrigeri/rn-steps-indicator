@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import StepIndicator, { Step, StepIndicatorStyles } from 'rn-step-indicator';
+import StepIndicator, { Step, StepIndicatorStyles } from 'rn-steps-indicator';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const completedStyles: StepIndicatorStyles['completed'] = {

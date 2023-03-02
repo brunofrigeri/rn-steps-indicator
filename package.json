@@ -1,5 +1,5 @@
 {
-  "name": "rn-step-indicator",
+  "name": "rn-steps-indicator",
   "version": "1.0.0",
   "description": "A simple react-native library component for a Step Indicator with custom styling using `react-native-reanimated` for introducing custom animations, in the manner we have it as a peer dependency, and implemented completely with `typescript`.",
   "main": "lib/commonjs/index",
@@ -40,13 +40,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/brunofrigeri/rn-step-indicator",
+  "repository": "https://github.com/brunofrigeri/rn-steps-indicator",
   "author": "Bruno Frigeri <bpiraja97@gmail.com> (https://github.com/brunofrigeri)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brunofrigeri/rn-step-indicator/issues"
+    "url": "https://github.com/brunofrigeri/rn-steps-indicator/issues"
   },
-  "homepage": "https://github.com/brunofrigeri/rn-step-indicator#readme",
+  "homepage": "https://github.com/brunofrigeri/rn-steps-indicator#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

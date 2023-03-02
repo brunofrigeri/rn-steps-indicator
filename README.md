@@ -5,13 +5,13 @@ A simple react-native Step Indicator widget with custom styling using `react-nat
 ## Installation
 
 ```sh
-npm install rn-step-indicator react-native-reanimated
+npm install rn-steps-indicator react-native-reanimated
 ```
 
 ## Simple Usage
 
 ```js
-import StepIndicator from 'rn-step-indicator';
+import StepIndicator from 'rn-steps-indicator';
 
 // ...
 
@@ -75,7 +75,7 @@ export default MyRNStepIndicator;
 ## Customizing Indicator and Label
 
 ```js
-import StepIndicator from 'rn-step-indicator';
+import StepIndicator from 'rn-steps-indicator';
 
 // ...
 
