@@ -1,11 +1,11 @@
 # React Native Step Indicator
 
-A simple react-native library component for a Step Indicator with custom styling using `react-native-reanimated` for introducing custom animations and implemented with `typescript`.
+A simple react-native library component for a Step Indicator with custom styling using `react-native-reanimated` for introducing custom animations, in the manner we have it as a peer dependency, and implemented completely with `typescript`.
 
 ## Installation
 
 ```sh
-npm install rn-step-indicator
+npm install rn-step-indicator react-native-reanimated
 ```
 
 ## Simple Usage
